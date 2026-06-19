@@ -9,9 +9,12 @@ import {
   HeartPulse,
   Mail,
   Menu,
+  MessageCircleHeart,
+  PackageCheck,
   PawPrint,
   Sparkles,
   Star,
+  ShoppingCart,
   X
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -30,6 +33,8 @@ import {
   trustBadges,
   trustMetrics
 } from "@/lib/dogify-data";
+import { useCartStore } from "@/lib/cart-store";
+import { dogifyContact } from "@/lib/contact";
 import type { ServicePageData, ServiceSlug } from "@/lib/dogify-data";
 
 const fadeUp = {
@@ -129,6 +134,7 @@ function SecondaryLink({ href, children }: { href: string; children: React.React
 
 function Navigation() {
   const [open, setOpen] = useState(false);
+  const cartCount = useCartStore((state) => state.items.reduce((total, item) => total + item.quantity, 0));
   const primaryLinks = [
     { label: "Food", href: "/food" },
     { label: "Accessories", href: "/accessories" },
@@ -161,6 +167,18 @@ function Navigation() {
           >
             Get Started
           </Link>
+          <Link
+            href="/cart"
+            aria-label="Open DOGIFY cart"
+            className="relative grid h-11 w-11 place-items-center rounded-full bg-dogify-ink text-white shadow-lg transition hover:-translate-y-0.5"
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {cartCount > 0 ? (
+              <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-dogify-green px-1 text-[11px] font-black text-white">
+                {cartCount}
+              </span>
+            ) : null}
+          </Link>
           <button
             type="button"
             aria-label="Open navigation"
@@ -173,7 +191,7 @@ function Navigation() {
       </div>
       {open && (
         <div className="glass mx-auto mt-3 grid max-w-6xl gap-2 rounded-[2rem] p-4 lg:hidden">
-          {[...primaryLinks, { label: "Contact", href: "/contact" }, { label: "FAQ", href: "/faq" }].map((link) => (
+          {[...primaryLinks, { label: "Cart", href: "/cart" }, { label: "Contact", href: "/contact" }, { label: "FAQ", href: "/faq" }].map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -203,6 +221,14 @@ function Footer() {
           <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
             Everything your pet needs. One trusted platform for modern pet parents in India.
           </p>
+          <div className="mt-5 grid gap-2 text-sm font-bold text-slate-600">
+            <a href={dogifyContact.whatsappHref} className="transition hover:text-dogify-blue">
+              WhatsApp: {dogifyContact.whatsappNumber}
+            </a>
+            <a href={dogifyContact.emailHref} className="transition hover:text-dogify-blue">
+              Email: {dogifyContact.email}
+            </a>
+          </div>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
           {footerLinks.map((link) => (
@@ -246,7 +272,7 @@ export function HomePage() {
             Premium Food, Accessories, Grooming, Medicines and Expert Health Support.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-            <PrimaryLink href="/food">Explore Services</PrimaryLink>
+            <PrimaryLink href="/food">Shop Pet Essentials</PrimaryLink>
             <SecondaryLink href="/grooming">Book Grooming</SecondaryLink>
           </div>
           <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
@@ -324,6 +350,8 @@ export function HomePage() {
         </div>
       </section>
 
+      <HowDogifyWorks />
+      <CommerceTrustStrip />
       <TrustSection />
       <ShowcaseSections />
       <TestimonialsSection />
@@ -357,6 +385,88 @@ function TrustSection() {
             );
           })}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function HowDogifyWorks() {
+  const steps = [
+    {
+      step: "01",
+      title: "Browse products",
+      copy: "Shop live DOGIFY food, accessories, and medicines from the Supabase-powered catalog.",
+      icon: ShoppingCart
+    },
+    {
+      step: "02",
+      title: "Cart or WhatsApp order",
+      copy: "Add products to cart or use Buy Now to open a ready WhatsApp order instantly.",
+      icon: MessageCircleHeart
+    },
+    {
+      step: "03",
+      title: "DOGIFY confirms",
+      copy: "The team confirms availability, delivery, grooming slots, or health support next steps.",
+      icon: PackageCheck
+    }
+  ];
+
+  return (
+    <section className="section-shell py-20">
+      <div className="grid gap-10 rounded-[2.5rem] bg-white/70 p-6 shadow-premium backdrop-blur lg:grid-cols-[0.8fr_1.2fr] lg:p-10">
+        <SectionHeader
+          eyebrow="How DOGIFY Works"
+          title="A simpler path from need to confirmed care."
+          copy="DOGIFY keeps ordering human-first: browse, generate a bill, and confirm through WhatsApp without online payment collection."
+          align="left"
+        />
+        <div className="grid gap-4 md:grid-cols-3">
+          {steps.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.article
+                key={item.step}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                variants={fadeUp}
+                transition={{ duration: 0.5, delay: index * 0.07 }}
+                className="glass rounded-[2rem] p-6"
+              >
+                <p className="text-sm font-black text-dogify-cyan">{item.step}</p>
+                <IconBubble icon={Icon} tone={index === 1 ? "green" : "blue"} />
+                <h3 className="mt-5 text-xl font-black text-dogify-ink">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{item.copy}</p>
+              </motion.article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CommerceTrustStrip() {
+  const badges = [
+    "Supabase-powered catalog",
+    "WhatsApp-first ordering",
+    "Grooming bookings",
+    "Health support requests",
+    "No online payment collection"
+  ];
+
+  return (
+    <section className="section-shell py-10">
+      <div className="glass flex flex-wrap items-center justify-center gap-3 rounded-[2rem] p-4">
+        {badges.map((badge) => (
+          <span
+            key={badge}
+            className="inline-flex min-h-11 items-center justify-center rounded-full bg-white/80 px-4 text-sm font-black text-dogify-ink shadow-sm"
+          >
+            {badge}
+          </span>
+        ))}
       </div>
     </section>
   );
@@ -745,4 +855,3 @@ export function LegalPage({ kind }: { kind: "privacy" | "terms" }) {
     </SiteFrame>
   );
 }
-
