@@ -272,8 +272,8 @@ export const companyStats = [
 
 export const contactChannels = [
   { title: "WhatsApp Care", copy: "Fast support for product, grooming, and health questions.", icon: MessageCircleHeart },
-  { title: "Email", copy: "hello@dogify.in for partnerships and support.", icon: Mail },
-  { title: "Phone", copy: "+91 90000 00000 for booking assistance.", icon: Phone },
+  { title: "Email", copy: "royjada0852@gmail.com for partnerships and support.", icon: Mail },
+  { title: "Phone", copy: "+91 6204408318 for booking assistance.", icon: Phone },
   { title: "Care Hub", copy: "Bengaluru, Mumbai, Delhi NCR, and expanding.", icon: MapPin }
 ];
 
@@ -376,4 +376,3 @@ export const careValues = [
   { title: "One pet profile", copy: "Products, services, and reminders should connect around the same pet.", icon: PawPrint },
   { title: "Support that shows up", copy: "Pet parents need direction before, during, and after care moments.", icon: CircleHelp }
 ];
-

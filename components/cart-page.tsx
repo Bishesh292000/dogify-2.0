@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, FileText, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import { CommerceFrame } from "@/components/commerce-frame";
+import { OptimizedImage } from "@/components/optimized-image";
 import { saveOrder } from "@/lib/commerce-api";
 import { getCartTotal, useCartStore } from "@/lib/cart-store";
 import { dogifyContact } from "@/lib/contact";
@@ -39,12 +40,14 @@ export function CartPage() {
       phone,
       email,
       address,
-      order_data_json: {
-        bill: bill.text,
-        items
-      } as Json,
+      order_data_json: items.map((item) => ({
+        product_id: Number(item.id),
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity
+      })) as Json,
       total_amount: total,
-      status: "new"
+      status: "pending"
     });
 
     if (error) {
@@ -116,9 +119,9 @@ export function CartPage() {
           ) : (
             items.map((item) => (
               <article key={item.id} className="glass grid gap-4 rounded-[2rem] p-4 sm:grid-cols-[120px_1fr_auto] sm:items-center">
-                <div className="aspect-square overflow-hidden rounded-[1.5rem] bg-slate-100">
+                <div className="relative aspect-square overflow-hidden rounded-[1.5rem] bg-slate-100">
                   {item.image_url ? (
-                    <img src={item.image_url} alt={item.name} className="h-full w-full object-cover" />
+                    <OptimizedImage src={item.image_url} alt={item.name} sizes="120px" />
                   ) : (
                     <div className="grid h-full place-items-center text-xs font-black text-slate-400">DOGIFY</div>
                   )}

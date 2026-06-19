@@ -1,5 +1,6 @@
 import { HeartHandshake, PawPrint, ShieldCheck, Sparkles } from "lucide-react";
 import { CommerceFrame } from "@/components/commerce-frame";
+import { OptimizedImage } from "@/components/optimized-image";
 
 export function AboutCommercePage() {
   return (
@@ -11,22 +12,22 @@ export function AboutCommercePage() {
             About DOGIFY
           </div>
           <h1 className="text-balance text-5xl font-black tracking-tight text-dogify-ink sm:text-6xl lg:text-7xl">
-            India's most trusted pet-care ecosystem.
+            India&apos;s most trusted pet-care ecosystem.
           </h1>
           <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">
             DOGIFY brings food, accessories, grooming, medicines, and health support into one dependable platform for modern pet parents.
           </p>
         </div>
         <div className="relative min-h-[460px] overflow-hidden rounded-[3rem] shadow-premium">
-          <img
+          <OptimizedImage
             src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=86"
             alt="DOGIFY pet-care ecosystem"
-            className="absolute inset-0 h-full w-full object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dogify-ink via-dogify-ink/20 to-transparent" />
           <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-[2rem] p-6 text-white">
             <p className="text-sm font-bold uppercase tracking-[0.24em] text-dogify-green">Mission</p>
-            <p className="mt-3 text-3xl font-black">Create India's most trusted pet-care ecosystem.</p>
+            <p className="mt-3 text-3xl font-black">Create India&apos;s most trusted pet-care ecosystem.</p>
           </div>
         </div>
       </section>

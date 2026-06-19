@@ -2,6 +2,7 @@
 
 import { ArrowRight, Mail, MessageCircleHeart, Phone, Send } from "lucide-react";
 import { CommerceFrame } from "@/components/commerce-frame";
+import { OptimizedImage } from "@/components/optimized-image";
 import { dogifyContact } from "@/lib/contact";
 
 export function ContactPage() {
@@ -21,10 +22,10 @@ export function ContactPage() {
           </p>
         </div>
         <div className="relative min-h-[460px] overflow-hidden rounded-[3rem] shadow-premium">
-          <img
+          <OptimizedImage
             src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1200&q=86"
             alt="DOGIFY contact support"
-            className="absolute inset-0 h-full w-full object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dogify-ink via-dogify-ink/20 to-transparent" />
           <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-[2rem] p-6 text-white">

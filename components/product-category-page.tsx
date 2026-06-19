@@ -4,9 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ShoppingCart, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { CommerceFrame } from "@/components/commerce-frame";
+import { OptimizedImage } from "@/components/optimized-image";
 import { ProductCard } from "@/components/product-card";
 import { ProductFilters } from "@/components/product-filters";
-import { fetchProductsByCategories } from "@/lib/commerce-api";
+import { fetchProductsByCategory } from "@/lib/commerce-api";
 import { useCartStore } from "@/lib/cart-store";
 import { createBuyNowWhatsAppMessage, formatCurrency, openWhatsApp } from "@/lib/whatsapp";
 import type { Product } from "@/lib/supabase/types";
@@ -24,6 +25,7 @@ export function ProductCategoryPage({
   title,
   eyebrow,
   copy,
+  commerceCategory,
   categories,
   image
 }: ProductCategoryPageProps) {
@@ -39,7 +41,7 @@ export function ProductCategoryPage({
     let active = true;
 
     async function loadProducts() {
-      const { data, error } = await fetchProductsByCategories(categories);
+      const { data, error } = await fetchProductsByCategory(commerceCategory);
 
       if (!active) {
         return;
@@ -60,14 +62,27 @@ export function ProductCategoryPage({
     return () => {
       active = false;
     };
-  }, [categories]);
+  }, [commerceCategory]);
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      const matchesSearch = `${product.name} ${product.description ?? ""}`
-        .toLowerCase()
-        .includes(query.trim().toLowerCase());
-      const matchesCategory = selectedCategory === "All" || product.category.toLowerCase() === selectedCategory.toLowerCase();
+      const searchableText = [
+        product.name,
+        product.description,
+        product.category,
+        product.subcategory,
+        product.brand,
+        product.pet_type,
+        ...(product.tags ?? [])
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      const matchesSearch = searchableText.includes(query.trim().toLowerCase());
+      const matchesCategory =
+        selectedCategory === "All" ||
+        product.subcategory?.toLowerCase() === selectedCategory.toLowerCase() ||
+        searchableText.includes(selectedCategory.toLowerCase());
 
       return matchesSearch && matchesCategory;
     });
@@ -75,7 +90,7 @@ export function ProductCategoryPage({
 
   function addToCart(product: Product) {
     addItem({
-      id: product.id,
+      id: String(product.id),
       name: product.name,
       category: product.category,
       price: product.price,
@@ -86,7 +101,7 @@ export function ProductCategoryPage({
   function buyNow(product: Product) {
     openWhatsApp(
       createBuyNowWhatsAppMessage({
-        id: product.id,
+        id: String(product.id),
         name: product.name,
         category: product.category,
         price: product.price,
@@ -107,7 +122,7 @@ export function ProductCategoryPage({
           <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">{copy}</p>
         </div>
         <div className="relative min-h-[460px] overflow-hidden rounded-[3rem] shadow-premium">
-          <img src={image} alt={title} className="absolute inset-0 h-full w-full object-cover" />
+          <OptimizedImage src={image} alt={title} priority sizes="(max-width: 1024px) 100vw, 50vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-dogify-ink via-dogify-ink/20 to-transparent" />
           <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-[2rem] p-6 text-white">
             <p className="text-sm font-bold uppercase tracking-[0.24em] text-dogify-green">Live Supabase Catalog</p>
@@ -172,9 +187,9 @@ export function ProductCategoryPage({
               className="max-h-[92vh] w-full max-w-4xl overflow-auto rounded-[2.5rem] bg-white shadow-premium"
             >
               <div className="grid gap-0 lg:grid-cols-2">
-                <div className="min-h-[360px] bg-slate-100">
+                <div className="relative min-h-[360px] bg-slate-100">
                   {selectedProduct.image_url ? (
-                    <img loading="lazy" src={selectedProduct.image_url} alt={selectedProduct.name} className="h-full w-full object-cover" />
+                    <OptimizedImage src={selectedProduct.image_url} alt={selectedProduct.name} sizes="(max-width: 1024px) 100vw, 50vw" />
                   ) : (
                     <div className="grid h-full min-h-[360px] place-items-center text-xl font-black text-slate-400">DOGIFY</div>
                   )}
@@ -191,6 +206,15 @@ export function ProductCategoryPage({
                   <p className="mt-4 text-xs font-black uppercase tracking-[0.22em] text-dogify-cyan">{selectedProduct.category}</p>
                   <h2 className="mt-3 text-4xl font-black text-dogify-ink">{selectedProduct.name}</h2>
                   <p className="mt-4 leading-8 text-slate-600">{selectedProduct.description}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {[selectedProduct.subcategory, selectedProduct.brand, selectedProduct.pet_type, ...(selectedProduct.tags ?? [])]
+                      .filter(Boolean)
+                      .map((label) => (
+                        <span key={label} className="rounded-full bg-slate-100 px-3 py-2 text-xs font-black text-slate-600">
+                          {label}
+                        </span>
+                      ))}
+                  </div>
                   <p className="mt-6 text-4xl font-black text-dogify-ink">{formatCurrency(selectedProduct.price)}</p>
                   <p className="mt-2 text-sm font-bold text-slate-500">
                     {selectedProduct.stock && selectedProduct.stock > 0 ? `${selectedProduct.stock} in stock` : "Stock updates from Supabase"}

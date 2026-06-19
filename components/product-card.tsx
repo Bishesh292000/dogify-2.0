@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ShoppingCart } from "lucide-react";
+import { OptimizedImage } from "@/components/optimized-image";
 import { formatCurrency } from "@/lib/whatsapp";
 import type { Product } from "@/lib/supabase/types";
 
@@ -23,16 +24,25 @@ export function ProductCard({ product, index, onOpen, onAddToCart, onBuyNow }: P
       className="glass overflow-hidden rounded-[2rem]"
     >
       <button type="button" onClick={() => onOpen(product)} className="block w-full text-left">
-        <div className="aspect-[4/3] bg-slate-100">
+        <div className="relative aspect-[4/3] bg-slate-100">
           {product.image_url ? (
-            <img loading="lazy" src={product.image_url} alt={product.name} className="h-full w-full object-cover" />
+            <OptimizedImage src={product.image_url} alt={product.name} sizes="(max-width: 1024px) 50vw, 33vw" />
           ) : (
             <div className="grid h-full place-items-center text-sm font-black text-slate-400">DOGIFY</div>
           )}
         </div>
         <div className="p-6">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-dogify-cyan">{product.category}</p>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-dogify-cyan">
+            {product.subcategory ?? product.category}
+          </p>
           <h2 className="mt-3 text-2xl font-black text-dogify-ink">{product.name}</h2>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {[product.brand, product.pet_type].filter(Boolean).map((label) => (
+              <span key={label} className="rounded-full bg-white/80 px-3 py-1 text-xs font-black text-slate-500">
+                {label}
+              </span>
+            ))}
+          </div>
           <p className="mt-3 line-clamp-2 min-h-14 text-sm leading-7 text-slate-600">{product.description}</p>
           <p className="mt-4 text-3xl font-black text-dogify-ink">{formatCurrency(product.price)}</p>
         </div>

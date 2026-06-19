@@ -1,21 +1,28 @@
 export type Product = {
-  id: string;
+  id: number;
   name: string;
   category: string;
+  subcategory: string | null;
+  brand: string | null;
+  pet_type: string | null;
+  tags: string[] | null;
   price: number;
   image_url: string | null;
   description: string | null;
-  stock: number | null;
+  stock: number;
   featured: boolean | null;
+  is_active: boolean | null;
   created_at: string | null;
+  updated_at: string | null;
 };
 
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Category = {
-  id: string;
+  id: number;
   name: string;
   slug: string;
+  created_at: string | null;
 };
 
 export type OrderInsert = {
@@ -48,30 +55,30 @@ export type Database = {
     Tables: {
       products: {
         Row: Product;
-        Insert: Omit<Product, "id" | "created_at"> & { id?: string; created_at?: string };
+        Insert: Omit<Product, "id" | "created_at" | "updated_at"> & { id?: number; created_at?: string; updated_at?: string };
         Update: Partial<Product>;
         Relationships: [];
       };
       categories: {
         Row: Category;
-        Insert: Omit<Category, "id"> & { id?: string };
+        Insert: Omit<Category, "id" | "created_at"> & { id?: number; created_at?: string };
         Update: Partial<Category>;
         Relationships: [];
       };
       orders: {
-        Row: OrderInsert & { id: string; created_at: string; status: string };
+        Row: OrderInsert & { id: number; created_at: string; status: string };
         Insert: OrderInsert;
         Update: Partial<OrderInsert>;
         Relationships: [];
       };
       grooming_bookings: {
-        Row: GroomingBookingInsert & { id: string };
+        Row: GroomingBookingInsert & { id: number; created_at: string };
         Insert: GroomingBookingInsert;
         Update: Partial<GroomingBookingInsert>;
         Relationships: [];
       };
       health_support_requests: {
-        Row: HealthSupportRequestInsert & { id: string; created_at: string };
+        Row: HealthSupportRequestInsert & { id: number; created_at: string };
         Insert: HealthSupportRequestInsert;
         Update: Partial<HealthSupportRequestInsert>;
         Relationships: [];

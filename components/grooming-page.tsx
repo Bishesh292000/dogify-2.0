@@ -3,6 +3,7 @@
 import { ArrowRight, CalendarHeart, MessageCircleHeart, Scissors } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { CommerceFrame } from "@/components/commerce-frame";
+import { OptimizedImage } from "@/components/optimized-image";
 import { saveGroomingBooking } from "@/lib/commerce-api";
 import { dogifyContact } from "@/lib/contact";
 
@@ -25,7 +26,7 @@ export function GroomingPage() {
       pet_type: String(formData.get("pet_type") ?? ""),
       service: String(formData.get("service") ?? ""),
       preferred_date: String(formData.get("preferred_date") ?? ""),
-      status: "new"
+      status: "pending"
     });
 
     if (error) {
@@ -61,11 +62,10 @@ export function GroomingPage() {
           </a>
         </div>
         <div className="relative min-h-[460px] overflow-hidden rounded-[3rem] shadow-premium">
-          <img
-            loading="lazy"
+          <OptimizedImage
             src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=86"
             alt="DOGIFY grooming service"
-            className="absolute inset-0 h-full w-full object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-dogify-ink via-dogify-ink/20 to-transparent" />
           <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-[2rem] p-6 text-white">

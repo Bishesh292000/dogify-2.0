@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { OptimizedImage } from "@/components/optimized-image";
 import {
   careValues,
   companyStats,
@@ -293,7 +294,12 @@ export function HomePage() {
           >
             <div className="absolute inset-8 rounded-[3rem] bg-gradient-to-br from-dogify-blue/20 via-dogify-cyan/20 to-dogify-green/20 blur-3xl" />
             <div className="absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[3.2rem] border border-white/60 bg-white shadow-premium max-sm:h-[300px] max-sm:w-[300px]">
-              <img src={heroImage} alt="Happy golden dog representing DOGIFY pet care" className="h-full w-full object-cover" />
+              <OptimizedImage
+                src={heroImage}
+                alt="Happy golden dog representing DOGIFY pet care"
+                priority
+                sizes="(max-width: 640px) 300px, 390px"
+              />
             </div>
             {[
               { label: "Food Packs", icon: servicePages.food.icon, className: "left-0 top-16", rotate: "-7deg" },
@@ -507,7 +513,7 @@ function ShowcaseSections() {
               transition={{ duration: 0.7 }}
               className="relative min-h-[500px] overflow-hidden rounded-[2.5rem] shadow-premium"
             >
-              <img src={service.image} alt={service.title} className="absolute inset-0 h-full w-full object-cover" />
+              <OptimizedImage src={service.image} alt={service.title} sizes="(max-width: 1024px) 100vw, 50vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-dogify-ink via-dogify-ink/20 to-transparent" />
               <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-[2rem] p-6 text-white">
                 <Icon className="h-9 w-9 text-dogify-green" />
@@ -600,7 +606,7 @@ function InnerHero({ eyebrow, title, copy, icon: Icon, image }: { eyebrow: strin
         transition={{ duration: 0.8, delay: 0.1 }}
         className="relative min-h-[480px] overflow-hidden rounded-[3rem] shadow-premium"
       >
-        {image ? <img src={image} alt={title} className="absolute inset-0 h-full w-full object-cover" /> : null}
+        {image ? <OptimizedImage src={image} alt={title} priority sizes="(max-width: 1024px) 100vw, 50vw" /> : null}
         <div className={`absolute inset-0 bg-gradient-to-br from-dogify-blue/80 via-dogify-cyan/50 to-dogify-green/60 ${image ? "mix-blend-multiply" : ""}`} />
         <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-[2rem] p-6 text-white">
           <Icon className="h-10 w-10 text-dogify-green" />

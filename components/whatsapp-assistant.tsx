@@ -38,6 +38,7 @@ function getInitialPosition(): Position {
 export function WhatsAppAssistant() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [ready, setReady] = useState(false);
   const [position, setPosition] = useState<Position>({ x: 24, y: 120 });
   const dragStart = useRef<{ pointerX: number; pointerY: number; x: number; y: number } | null>(null);
   const moved = useRef(false);
@@ -45,11 +46,14 @@ export function WhatsAppAssistant() {
 
   useEffect(() => {
     setPosition(getInitialPosition());
+    setReady(true);
   }, []);
 
   useEffect(() => {
-    window.sessionStorage.setItem("dogify-assistant-position", JSON.stringify(position));
-  }, [position]);
+    if (ready) {
+      window.sessionStorage.setItem("dogify-assistant-position", JSON.stringify(position));
+    }
+  }, [position, ready]);
 
   const resetIdle = useMemo(
     () => () => {

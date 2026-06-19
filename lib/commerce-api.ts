@@ -3,7 +3,7 @@
 import { getSupabaseClient } from "@/lib/supabase/client";
 import type { GroomingBookingInsert, HealthSupportRequestInsert, OrderInsert, Product } from "@/lib/supabase/types";
 
-export async function fetchProductsByCategories(categories: string[]) {
+export async function fetchProductsByCategory(category: string) {
   const supabase = getSupabaseClient();
 
   if (!supabase) {
@@ -15,12 +15,19 @@ export async function fetchProductsByCategories(categories: string[]) {
 
   const { data, error } = await supabase
     .from("products")
-    .select("id,name,category,price,image_url,description,stock,featured,created_at")
-    .in("category", categories)
+    .select("id,name,category,subcategory,brand,pet_type,tags,price,image_url,description,stock,featured,is_active,created_at,updated_at")
+    .eq("category", category)
+    .or("is_active.is.true,is_active.is.null")
     .order("featured", { ascending: false })
     .order("created_at", { ascending: false });
 
-  return { data: (data ?? []) as Product[], error };
+  return {
+    data: (data ?? []).map((product) => ({
+      ...product,
+      price: Number(product.price)
+    })) as Product[],
+    error
+  };
 }
 
 export async function saveOrder(order: OrderInsert) {
