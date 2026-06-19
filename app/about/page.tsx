@@ -1,15 +1,13 @@
-import type { Metadata } from "next";
-import { AboutPage } from "@/components/dogify-site";
+import { AboutCommercePage } from "@/components/about-commerce-page";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "About DOGIFY | India's Trusted Pet-Care Ecosystem",
   description:
     "Learn about DOGIFY's mission to create India's most trusted pet-care ecosystem across food, accessories, grooming, medicines, and health support.",
-  alternates: {
-    canonical: "/about"
-  }
-};
+  canonical: "/about"
+});
 
 export default function Page() {
-  return <AboutPage />;
+  return <AboutCommercePage />;
 }

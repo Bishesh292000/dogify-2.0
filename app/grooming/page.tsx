@@ -1,15 +1,13 @@
-import type { Metadata } from "next";
-import { ServicePage } from "@/components/dogify-site";
+import { GroomingPage } from "@/components/grooming-page";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Luxury Pet Grooming | DOGIFY",
   description:
     "Book premium DOGIFY grooming for bathing, trimming, nail care, spa treatments, and home visit grooming.",
-  alternates: {
-    canonical: "/grooming"
-  }
-};
+  canonical: "/grooming"
+});
 
 export default function Page() {
-  return <ServicePage slug="grooming" />;
+  return <GroomingPage />;
 }

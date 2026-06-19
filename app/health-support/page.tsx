@@ -1,15 +1,13 @@
-import type { Metadata } from "next";
-import { ServicePage } from "@/components/dogify-site";
+import { HealthSupportPage } from "@/components/health-support-page";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Pet Health Support | DOGIFY",
   description:
     "DOGIFY health support connects vet consultation, WhatsApp guidance, diet support, emergency direction, tracking, and vaccination reminders.",
-  alternates: {
-    canonical: "/health-support"
-  }
-};
+  canonical: "/health-support"
+});
 
 export default function Page() {
-  return <ServicePage slug="health-support" />;
+  return <HealthSupportPage />;
 }
