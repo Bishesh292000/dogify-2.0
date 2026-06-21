@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, FileText, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { ArrowRight, FileText, Minus, Plus, ShoppingBag, Trash2, Truck } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 import { CommerceFrame } from "@/components/commerce-frame";
+import { PremiumHero, PremiumPanel } from "@/components/commerce-ui";
 import { OptimizedImage } from "@/components/optimized-image";
 import { saveOrder } from "@/lib/commerce-api";
 import { getCartTotal, useCartStore } from "@/lib/cart-store";
@@ -71,19 +72,14 @@ export function CartPage() {
 
   return (
     <CommerceFrame>
-      <section className="section-shell pb-16 pt-32">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-sm font-bold text-dogify-blue shadow-sm backdrop-blur">
-              <ShoppingBag className="h-4 w-4 text-dogify-green" />
-              DOGIFY Cart
-            </div>
-            <h1 className="text-balance text-5xl font-black tracking-tight text-dogify-ink sm:text-6xl">One cart for every pet need.</h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              Food, accessories, and medicines stay together while you move through DOGIFY.
-            </p>
-          </div>
-          <div className="glass rounded-[2rem] p-6">
+      <PremiumHero
+        eyebrow="DOGIFY Cart"
+        title="One premium cart for every pet need."
+        copy="Review products, track your shipping progress, and place a WhatsApp-confirmed DOGIFY order."
+        icon={ShoppingBag}
+      />
+      <section className="section-shell pb-10">
+          <PremiumPanel className="p-6">
             <p className="text-sm font-black uppercase tracking-[0.22em] text-dogify-cyan">Support</p>
             <p className="mt-3 text-2xl font-black text-dogify-ink">Need help before checkout?</p>
             <div className="mt-5 grid gap-3">
@@ -94,14 +90,13 @@ export function CartPage() {
                 {dogifyContact.email}
               </a>
             </div>
-          </div>
-        </div>
+          </PremiumPanel>
       </section>
 
       <section className="section-shell grid gap-8 pb-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
         <div className="grid gap-4">
           {items.length === 0 ? (
-            <div className="glass rounded-[2rem] p-10 text-center">
+            <PremiumPanel className="p-10 text-center">
               <h2 className="text-3xl font-black text-dogify-ink">Your cart is empty.</h2>
               <p className="mt-3 text-slate-600">Start with food, accessories, or medicines.</p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -110,15 +105,15 @@ export function CartPage() {
                   { label: "Accessories", href: "/accessories" },
                   { label: "Medicines", href: "/medicines" }
                 ].map((link) => (
-                  <Link key={link.href} href={link.href} className="rounded-full bg-dogify-blue px-5 py-3 text-sm font-black text-white">
+                  <Link key={link.href} href={link.href} className="rounded-[14px] bg-[#FF6B35] px-5 py-3 text-sm font-black text-white">
                     {link.label}
                   </Link>
                 ))}
               </div>
-            </div>
+            </PremiumPanel>
           ) : (
             items.map((item) => (
-              <article key={item.id} className="glass grid gap-4 rounded-[2rem] p-4 sm:grid-cols-[120px_1fr_auto] sm:items-center">
+              <article key={item.id} className="grid gap-4 rounded-[20px] border border-white/60 bg-white/70 p-4 shadow-[0_24px_90px_rgba(15,23,42,0.10)] backdrop-blur-2xl sm:grid-cols-[120px_1fr_auto] sm:items-center">
                 <div className="relative aspect-square overflow-hidden rounded-[1.5rem] bg-slate-100">
                   {item.image_url ? (
                     <OptimizedImage src={item.image_url} alt={item.name} sizes="120px" />
@@ -139,18 +134,18 @@ export function CartPage() {
                     type="button"
                     aria-label="Decrease quantity"
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="grid h-10 w-10 place-items-center rounded-full bg-white text-dogify-ink"
+                    className="grid h-10 w-10 place-items-center rounded-[14px] bg-white text-dogify-ink"
                   >
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="grid h-10 min-w-12 place-items-center rounded-full bg-dogify-ink px-3 text-sm font-black text-white">
+                  <span className="grid h-10 min-w-12 place-items-center rounded-[14px] bg-slate-950 px-3 text-sm font-black text-white">
                     {item.quantity}
                   </span>
                   <button
                     type="button"
                     aria-label="Increase quantity"
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="grid h-10 w-10 place-items-center rounded-full bg-white text-dogify-ink"
+                    className="grid h-10 w-10 place-items-center rounded-[14px] bg-white text-dogify-ink"
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -158,7 +153,7 @@ export function CartPage() {
                     type="button"
                     aria-label="Remove product"
                     onClick={() => removeItem(item.id)}
-                    className="grid h-10 w-10 place-items-center rounded-full bg-red-50 text-red-600"
+                    className="grid h-10 w-10 place-items-center rounded-[14px] bg-red-50 text-red-600"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -168,7 +163,7 @@ export function CartPage() {
           )}
         </div>
 
-        <form onSubmit={submitOrder} className="glass rounded-[2.5rem] p-6 md:p-8">
+        <form onSubmit={submitOrder} className="rounded-[24px] border border-white/60 bg-white/70 p-6 shadow-[0_24px_90px_rgba(15,23,42,0.10)] backdrop-blur-2xl md:p-8">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-dogify-cyan">Checkout</p>
           <div className="mt-4 flex items-end justify-between gap-4 border-b border-white/70 pb-5">
             <div>
@@ -178,6 +173,16 @@ export function CartPage() {
             <p className="text-sm font-bold text-slate-500">{items.length} item types</p>
           </div>
           <div className="mt-5 rounded-[2rem] bg-white/80 p-5">
+            <div className="mb-5 rounded-[14px] bg-[#FFB84D]/20 p-4">
+              <div className="mb-2 flex items-center gap-2 text-sm font-black text-slate-700">
+                <Truck className="h-4 w-4 text-[#FF6B35]" />
+                Shipping progress
+              </div>
+              <div className="h-3 overflow-hidden rounded-full bg-white">
+                <div className="h-full w-2/3 rounded-full bg-gradient-to-r from-[#FF6B35] to-[#FFB84D]" />
+              </div>
+              <p className="mt-2 text-xs font-bold text-slate-500">Add confirmed address details for DOGIFY delivery coordination.</p>
+            </div>
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-dogify-ink text-white">
                 <FileText className="h-4 w-4" />
@@ -210,7 +215,7 @@ export function CartPage() {
                   required
                   name={field.name}
                   type={field.type}
-                  className="h-12 rounded-2xl border border-slate-200 bg-white/80 px-4 outline-none transition focus:border-dogify-cyan"
+                  className="h-12 rounded-[14px] border border-slate-200 bg-white/80 px-4 outline-none transition focus:border-[#FF6B35]"
                 />
               </label>
             ))}
@@ -219,14 +224,14 @@ export function CartPage() {
               <textarea
                 required
                 name="address"
-                className="min-h-28 rounded-2xl border border-slate-200 bg-white/80 p-4 outline-none transition focus:border-dogify-cyan"
+                className="min-h-28 rounded-[14px] border border-slate-200 bg-white/80 p-4 outline-none transition focus:border-[#FF6B35]"
               />
             </label>
           </div>
           <button
             type="submit"
             disabled={status === "saving"}
-            className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-dogify-blue px-6 py-3 text-sm font-black text-white shadow-premium transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-[14px] bg-[#FF6B35] px-6 py-3 text-sm font-black text-white shadow-premium transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {status === "saving" ? "Saving Order..." : "Order Now"} <ArrowRight className="h-4 w-4" />
           </button>
@@ -235,6 +240,9 @@ export function CartPage() {
               {message}
             </p>
           ) : null}
+          <Link href="/checkout" className="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-[14px] bg-slate-950 text-sm font-black text-white">
+            Continue To Premium Checkout
+          </Link>
         </form>
       </section>
     </CommerceFrame>

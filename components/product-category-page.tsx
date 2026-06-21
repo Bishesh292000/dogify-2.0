@@ -1,12 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ShoppingCart, X } from "lucide-react";
+import { ArrowRight, Box, SlidersHorizontal, ShoppingCart, Sparkles, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { CommerceFrame } from "@/components/commerce-frame";
 import { OptimizedImage } from "@/components/optimized-image";
 import { ProductCard } from "@/components/product-card";
 import { ProductFilters } from "@/components/product-filters";
+import { PremiumHero, PremiumPanel } from "@/components/commerce-ui";
 import { fetchProductsByCategory } from "@/lib/commerce-api";
 import { useCartStore } from "@/lib/cart-store";
 import { createBuyNowWhatsAppMessage, formatCurrency, openWhatsApp } from "@/lib/whatsapp";
@@ -32,6 +33,7 @@ export function ProductCategoryPage({
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("featured");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "missing-config" | "error">("loading");
   const [message, setMessage] = useState("");
@@ -65,7 +67,7 @@ export function ProductCategoryPage({
   }, [commerceCategory]);
 
   const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
+    const nextProducts = products.filter((product) => {
       const searchableText = [
         product.name,
         product.description,
@@ -86,7 +88,14 @@ export function ProductCategoryPage({
 
       return matchesSearch && matchesCategory;
     });
-  }, [products, query, selectedCategory]);
+
+    return nextProducts.sort((a, b) => {
+      if (sort === "price-low") return a.price - b.price;
+      if (sort === "price-high") return b.price - a.price;
+      if (sort === "newest") return new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime();
+      return Number(b.featured) - Number(a.featured);
+    });
+  }, [products, query, selectedCategory, sort]);
 
   function addToCart(product: Product) {
     addItem({
@@ -112,62 +121,82 @@ export function ProductCategoryPage({
 
   return (
     <CommerceFrame>
-      <section className="section-shell grid min-h-[680px] items-center gap-10 pb-16 pt-32 lg:grid-cols-[0.92fr_1.08fr]">
-        <div>
-          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-sm font-bold text-dogify-blue shadow-sm backdrop-blur">
-            <ShoppingCart className="h-4 w-4 text-dogify-green" />
-            {eyebrow}
-          </div>
-          <h1 className="text-balance text-5xl font-black tracking-tight text-dogify-ink sm:text-6xl lg:text-7xl">{title}</h1>
-          <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">{copy}</p>
-        </div>
-        <div className="relative min-h-[460px] overflow-hidden rounded-[3rem] shadow-premium">
-          <OptimizedImage src={image} alt={title} priority sizes="(max-width: 1024px) 100vw, 50vw" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dogify-ink via-dogify-ink/20 to-transparent" />
-          <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-[2rem] p-6 text-white">
-            <p className="text-sm font-bold uppercase tracking-[0.24em] text-dogify-green">Live Supabase Catalog</p>
-            <p className="mt-3 text-3xl font-black">{categories.join(" | ")}</p>
-          </div>
-        </div>
-      </section>
+      <PremiumHero eyebrow={eyebrow} title={title} copy={copy} icon={ShoppingCart} />
 
-      <section className="section-shell py-12">
-        <ProductFilters
-          categories={categories}
-          query={query}
-          selectedCategory={selectedCategory}
-          onQueryChange={setQuery}
-          onCategoryChange={setSelectedCategory}
-        />
-      </section>
-
-      <section className="section-shell pb-24 pt-6">
-        {status === "loading" ? (
-          <div className="glass rounded-[2rem] p-10 text-center text-lg font-black text-dogify-ink">Loading DOGIFY products...</div>
-        ) : status !== "ready" ? (
-          <div className="glass rounded-[2rem] p-10 text-center">
-            <h2 className="text-2xl font-black text-dogify-ink">Supabase products are ready to connect.</h2>
-            <p className="mx-auto mt-3 max-w-2xl leading-7 text-slate-600">{message}</p>
-          </div>
-        ) : filteredProducts.length === 0 ? (
-          <div className="glass rounded-[2rem] p-10 text-center">
-            <h2 className="text-2xl font-black text-dogify-ink">No products found.</h2>
-            <p className="mt-3 text-slate-600">Add matching rows in Supabase or adjust the search and filters.</p>
-          </div>
-        ) : (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProducts.map((product, index) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                index={index}
-                onOpen={setSelectedProduct}
-                onAddToCart={addToCart}
-                onBuyNow={buyNow}
+      <section className="section-shell grid gap-6 py-10 lg:grid-cols-[290px_1fr] lg:items-start">
+        <aside className="lg:sticky lg:top-28">
+          <PremiumPanel className="p-5">
+            <div className="flex items-center gap-3">
+              <span className="grid h-11 w-11 place-items-center rounded-[14px] bg-[#FF6B35] text-white">
+                <SlidersHorizontal className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-[#FF6B35]">Filters</p>
+                <h2 className="text-xl font-black text-slate-950">Shop smarter</h2>
+              </div>
+            </div>
+            <div className="mt-5">
+              <ProductFilters
+                categories={categories}
+                query={query}
+                selectedCategory={selectedCategory}
+                onQueryChange={setQuery}
+                onCategoryChange={setSelectedCategory}
               />
-            ))}
-          </div>
-        )}
+            </div>
+          </PremiumPanel>
+        </aside>
+
+        <div>
+          <PremiumPanel className="mb-6 flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#FF6B35]">Live Supabase Catalog</p>
+              <p className="mt-1 text-sm font-bold text-slate-500">{filteredProducts.length} products ready for DOGIFY parents</p>
+            </div>
+            <select
+              value={sort}
+              onChange={(event) => setSort(event.target.value)}
+              className="h-12 rounded-[14px] border border-white/70 bg-white px-4 text-sm font-black text-slate-700 outline-none"
+            >
+              <option value="featured">Sort: Featured</option>
+              <option value="newest">Sort: Newest</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </PremiumPanel>
+          {status === "loading" ? (
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="h-[430px] animate-pulse rounded-[20px] border border-white/70 bg-white/70 shadow-[0_24px_90px_rgba(15,23,42,0.08)]" />
+              ))}
+            </div>
+          ) : status !== "ready" ? (
+            <PremiumPanel className="p-10 text-center">
+              <Sparkles className="mx-auto h-10 w-10 text-[#FF6B35]" />
+              <h2 className="mt-4 text-2xl font-black text-slate-950">Supabase products are ready to connect.</h2>
+              <p className="mx-auto mt-3 max-w-2xl leading-7 text-slate-600">{message}</p>
+            </PremiumPanel>
+          ) : filteredProducts.length === 0 ? (
+            <PremiumPanel className="p-10 text-center">
+              <Box className="mx-auto h-12 w-12 text-[#FF6B35]" />
+              <h2 className="mt-4 text-3xl font-black text-slate-950">No products found.</h2>
+              <p className="mt-3 text-slate-600">Try a different search, sort, or category chip.</p>
+            </PremiumPanel>
+          ) : (
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {filteredProducts.map((product, index) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  index={index}
+                  onOpen={setSelectedProduct}
+                  onAddToCart={addToCart}
+                  onBuyNow={buyNow}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
       <AnimatePresence>
