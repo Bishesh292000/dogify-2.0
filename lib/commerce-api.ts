@@ -9,7 +9,7 @@ export async function fetchProductsByCategory(category: string) {
   if (!supabase) {
     return {
       data: null,
-      error: new Error("Connect Supabase environment values to load live DOGIFY products.")
+      error: new Error("Connect the product catalog environment values to load live DOGIFY products.")
     };
   }
 
@@ -36,7 +36,7 @@ export async function fetchProductById(id: string) {
   if (!supabase) {
     return {
       data: null,
-      error: new Error("Connect Supabase environment values to load this product.")
+      error: new Error("Connect the product catalog environment values to load this product.")
     };
   }
 
@@ -58,7 +58,7 @@ export async function fetchActiveProducts() {
   if (!supabase) {
     return {
       data: null,
-      error: new Error("Connect Supabase environment values to search products.")
+      error: new Error("Connect the product catalog environment values to search products.")
     };
   }
 
@@ -79,7 +79,7 @@ export async function saveOrder(order: OrderInsert) {
   const supabase = getSupabaseClient();
 
   if (!supabase) {
-    return { error: new Error("Add Supabase environment values to save orders.") };
+    return { error: new Error("Add product catalog environment values to save orders.") };
   }
 
   const { error } = await supabase.from("orders").insert(order);
@@ -90,7 +90,7 @@ export async function saveGroomingBooking(booking: GroomingBookingInsert) {
   const supabase = getSupabaseClient();
 
   if (!supabase) {
-    return { error: new Error("Add Supabase environment values to save grooming bookings.") };
+    return { error: new Error("Add product catalog environment values to save grooming bookings.") };
   }
 
   const { error } = await supabase.from("grooming_bookings").insert(booking);
@@ -101,7 +101,7 @@ export async function saveHealthSupportRequest(request: HealthSupportRequestInse
   const supabase = getSupabaseClient();
 
   if (!supabase) {
-    return { error: new Error("Add Supabase environment values to save health support requests.") };
+    return { error: new Error("Add product catalog environment values to save health support requests.") };
   }
 
   const { error } = await supabase.from("health_support_requests").insert(request);

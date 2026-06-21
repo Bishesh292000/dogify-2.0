@@ -13,7 +13,7 @@ export default function Page() {
     <ProductCategoryPage
       eyebrow="Premium Pet Food"
       title="Nutrition, treats, and supplements from DOGIFY."
-      copy="Search and shop live Supabase products across dog food, cat food, puppy food, treats, and wellness supplements."
+      copy="Search and shop DOGIFY products across dog food, cat food, puppy food, treats, and wellness supplements."
       commerceCategory="food"
       categories={["Dog Food", "Cat Food", "Puppy Food", "Treats", "Supplements"]}
       image="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=1200&q=86"

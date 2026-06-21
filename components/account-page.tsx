@@ -27,7 +27,7 @@ export function AccountPage() {
             <User className="h-9 w-9" />
           </div>
           <h2 className="mt-5 text-2xl font-black text-slate-950">DOGIFY Parent</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-500">Customer account architecture ready for Supabase Auth and future admin workflows.</p>
+          <p className="mt-2 text-sm leading-6 text-slate-500">Customer account architecture ready for future login, admin, and order workflows.</p>
           <div className="mt-6 grid gap-2">
             {["Overview", "Orders", "Wishlist", "Addresses", "Pet Profiles", "Profile"].map((item) => (
               <button key={item} type="button" className="rounded-[14px] bg-white px-4 py-3 text-left text-sm font-black text-slate-700 hover:text-[#FF6B35]">

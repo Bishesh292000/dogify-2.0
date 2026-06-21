@@ -13,7 +13,7 @@ export default function Page() {
     <ProductCategoryPage
       eyebrow="Lifestyle Essentials"
       title="Accessories for calmer, safer pet life."
-      copy="Browse live DOGIFY accessories from Supabase, including beds, toys, harnesses, leashes, bowls, clothing, and travel gear."
+      copy="Browse live DOGIFY accessories, including beds, toys, harnesses, leashes, bowls, clothing, and travel gear."
       commerceCategory="accessories"
       categories={["Beds", "Toys", "Harnesses", "Leashes", "Bowls", "Clothing", "Travel Accessories"]}
       image="https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=1200&q=86"

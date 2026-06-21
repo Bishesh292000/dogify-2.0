@@ -150,7 +150,7 @@ export function ProductCategoryPage({
         <div>
           <PremiumPanel className="mb-6 flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#FF6B35]">Live Supabase Catalog</p>
+              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#FF6B35]">Live DOGIFY Catalog</p>
               <p className="mt-1 text-sm font-bold text-slate-500">{filteredProducts.length} products ready for DOGIFY parents</p>
             </div>
             <select
@@ -173,7 +173,7 @@ export function ProductCategoryPage({
           ) : status !== "ready" ? (
             <PremiumPanel className="p-10 text-center">
               <Sparkles className="mx-auto h-10 w-10 text-[#FF6B35]" />
-              <h2 className="mt-4 text-2xl font-black text-slate-950">Supabase products are ready to connect.</h2>
+              <h2 className="mt-4 text-2xl font-black text-slate-950">DOGIFY products are ready to connect.</h2>
               <p className="mx-auto mt-3 max-w-2xl leading-7 text-slate-600">{message}</p>
             </PremiumPanel>
           ) : filteredProducts.length === 0 ? (
@@ -246,7 +246,7 @@ export function ProductCategoryPage({
                   </div>
                   <p className="mt-6 text-4xl font-black text-dogify-ink">{formatCurrency(selectedProduct.price)}</p>
                   <p className="mt-2 text-sm font-bold text-slate-500">
-                    {selectedProduct.stock && selectedProduct.stock > 0 ? `${selectedProduct.stock} in stock` : "Stock updates from Supabase"}
+                    {selectedProduct.stock && selectedProduct.stock > 0 ? `${selectedProduct.stock} in stock` : "Stock updates from DOGIFY"}
                   </p>
                   <div className="mt-8 grid gap-3 sm:grid-cols-2">
                     <button

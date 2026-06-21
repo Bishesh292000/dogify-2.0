@@ -13,7 +13,7 @@ export default function Page() {
     <ProductCategoryPage
       eyebrow="Pet Healthcare"
       title="Medicines and preventive care with clarity."
-      copy="Shop live Supabase products for tick and flea care, supplements, vitamins, first aid, and prescription support."
+      copy="Shop DOGIFY products for tick and flea care, supplements, vitamins, first aid, and prescription support."
       commerceCategory="medicines"
       categories={["Tick & Flea Care", "Supplements", "Vitamins", "First Aid", "Prescription Support"]}
       image="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1200&q=86"

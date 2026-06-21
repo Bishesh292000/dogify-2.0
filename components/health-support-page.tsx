@@ -86,7 +86,7 @@ export function HealthSupportPage() {
                 <Stethoscope className="h-6 w-6" />
               </span>
               <h2 className="mt-5 text-2xl font-black text-dogify-ink">{type}</h2>
-              <p className="mt-3 leading-7 text-slate-600">Structured support details saved to Supabase for fast follow-up.</p>
+              <p className="mt-3 leading-7 text-slate-600">Structured support details saved for fast DOGIFY follow-up.</p>
             </article>
           ))}
         </div>
