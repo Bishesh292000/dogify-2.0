@@ -10,7 +10,6 @@ const links = [
   { label: "Food", href: "/food" },
   { label: "Accessories", href: "/accessories" },
   { label: "Medicines", href: "/medicines" },
-  { label: "Grooming", href: "/grooming" },
   { label: "Health", href: "/health-support" },
   { label: "Search", href: "/search" },
   { label: "About", href: "/about" },
