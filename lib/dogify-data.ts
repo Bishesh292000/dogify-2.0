@@ -1,5 +1,4 @@
 import {
-  Bath,
   Beef,
   Bed,
   Bone,
@@ -8,7 +7,6 @@ import {
   Dog,
   HeartHandshake,
   HeartPulse,
-  Home,
   Mail,
   MapPin,
   MessageCircleHeart,
@@ -16,10 +14,8 @@ import {
   PawPrint,
   Phone,
   Pill,
-  Scissors,
   ShieldCheck,
   ShoppingBag,
-  Sparkles,
   Star,
   Stethoscope,
   Syringe,
@@ -29,7 +25,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-export type ServiceSlug = "food" | "accessories" | "grooming" | "medicines" | "health-support";
+export type ServiceSlug = "food" | "accessories" | "medicines" | "health-support";
 
 export type ServicePageData = {
   slug: ServiceSlug;
@@ -120,41 +116,6 @@ export const servicePages: Record<ServiceSlug, ServicePageData> = {
       { value: "Fast", label: "Delivery ready" }
     ]
   },
-  grooming: {
-    slug: "grooming",
-    href: "/grooming",
-    eyebrow: "Luxury Grooming",
-    title: "Spa-grade grooming with trained hands and calm handling.",
-    description:
-      "Bathing, trimming, nail care, spa treatments, and home visit grooming designed around hygiene, comfort, and trust.",
-    heroCopy:
-      "A polished grooming experience for pet parents who want professional care without stress, rushed handling, or messy coordination.",
-    icon: Scissors,
-    accent: "from-dogify-green to-dogify-cyan",
-    image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=86",
-    pillars: [
-      { title: "Certified groomers", copy: "Professionals trained for coat care, handling, and hygiene.", icon: ShieldCheck },
-      { title: "Home visit option", copy: "Calmer grooming for pets who prefer familiar spaces.", icon: Home },
-      { title: "Spa products", copy: "Coat-safe shampoos, conditioners, and finishing care.", icon: Sparkles }
-    ],
-    collections: [
-      { title: "Bathing", copy: "Deep cleaning with coat-friendly products and careful drying." },
-      { title: "Hair Trimming", copy: "Breed-aware styling, hygiene trims, and seasonal cuts." },
-      { title: "Nail Clipping", copy: "Careful clipping and paw handling for comfort." },
-      { title: "Spa Treatment", copy: "De-shedding, coat shine, paw care, and gentle finishing." },
-      { title: "Home Visit Grooming", copy: "Professional grooming at your doorstep." }
-    ],
-    process: [
-      { step: "01", title: "Book a slot", copy: "Choose service, location, timing, and pet details." },
-      { step: "02", title: "Groom with care", copy: "The session is handled with hygiene, patience, and comfort checks." },
-      { step: "03", title: "Follow-up guidance", copy: "Get coat, skin, paw, and routine care recommendations." }
-    ],
-    metrics: [
-      { value: "5", label: "Grooming services" },
-      { value: "Home", label: "Visit available" },
-      { value: "Pro", label: "Certified care" }
-    ]
-  },
   medicines: {
     slug: "medicines",
     href: "/medicines",
@@ -238,14 +199,14 @@ export const trustMetrics = [
 
 export const trustBadges = [
   { title: "Fast Delivery", icon: Truck },
-  { title: "Certified Groomers", icon: ShieldCheck },
-  { title: "Trusted Care", icon: HeartPulse }
+  { title: "Trusted Care", icon: HeartPulse },
+  { title: "Health Support", icon: ShieldCheck }
 ];
 
 export const testimonials = [
   {
     quote:
-      "DOGIFY made grooming and medicine refills feel effortless. The team actually remembers my beagle's needs.",
+      "DOGIFY made medicine refills and health support feel effortless. The team actually remembers my beagle's needs.",
     name: "Aarav Mehta",
     pet: "Parent to Bruno"
   },
@@ -257,36 +218,31 @@ export const testimonials = [
   },
   {
     quote:
-      "It feels premium without becoming cold. Great products, clean grooming, and delivery that lands on time.",
+      "It feels premium without becoming cold. Great products, reliable support, and delivery that lands on time.",
     name: "Rhea Kapoor",
     pet: "Parent to Simba"
   }
 ];
 
 export const companyStats = [
-  { value: "1000+", label: "Happy pets supported" },
-  { value: "500+", label: "Curated care products" },
-  { value: "24/7", label: "Health support direction" },
-  { value: "5", label: "Core care verticals" }
+  { value: "4", label: "Core care verticals" },
+  { value: "24/7", label: "Support availability" },
+  { value: "100%", label: "Pet-first focus" },
+  { value: "1", label: "Unified care ecosystem" }
 ];
 
 export const contactChannels = [
-  { title: "WhatsApp Care", copy: "Fast support for product, grooming, and health questions.", icon: MessageCircleHeart },
+  { title: "WhatsApp Care", copy: "Fast support for product and health questions.", icon: MessageCircleHeart },
   { title: "Email", copy: "royjada0852@gmail.com for partnerships and support.", icon: Mail },
   { title: "Phone", copy: "+91 6204408318 for booking assistance.", icon: Phone },
-  { title: "Care Hub", copy: "Bengaluru, Mumbai, Delhi NCR, and expanding.", icon: MapPin }
+  { title: "Care Hub", copy: "Darbhanga, Samastipur and expanding.", icon: MapPin }
 ];
 
 export const faqItems = [
   {
     question: "Is DOGIFY an ecommerce store?",
     answer:
-      "DOGIFY is designed as a pet-care ecosystem, not a simple ecommerce storefront. Products, grooming, medicines, and support are connected around the needs of each pet parent."
-  },
-  {
-    question: "Can I book home grooming?",
-    answer:
-      "Yes. DOGIFY supports home visit grooming in available service areas, with services such as bathing, trimming, nail care, and spa treatments."
+      "DOGIFY is designed as a pet-care ecosystem, not a simple ecommerce storefront. Products, medicines, and support are connected around the needs of each pet parent."
   },
   {
     question: "Do you provide veterinary support?",
@@ -320,7 +276,7 @@ export const legalSections = {
     {
       title: "How we use information",
       copy:
-        "Information is used to personalize recommendations, coordinate grooming and health support, improve service quality, send reminders, and keep pet-care records organized."
+        "Information is used to personalize recommendations, coordinate health support, improve service quality, send reminders, and keep pet-care records organized."
     },
     {
       title: "Health information",
@@ -337,7 +293,7 @@ export const legalSections = {
     {
       title: "Platform use",
       copy:
-        "DOGIFY provides pet-care discovery, coordination, product information, grooming booking, medicines support, and health-support workflows for responsible pet parents."
+        "DOGIFY provides pet-care discovery, coordination, product information, medicines support, and health-support workflows for responsible pet parents."
     },
     {
       title: "Medical responsibility",
@@ -347,7 +303,7 @@ export const legalSections = {
     {
       title: "Bookings and availability",
       copy:
-        "Grooming, delivery, and support availability may vary by city, pet profile, provider schedule, and service category."
+        "Delivery and support availability may vary by city, pet profile, provider schedule, and service category."
     },
     {
       title: "Product and service standards",
@@ -360,7 +316,6 @@ export const legalSections = {
 export const footerLinks = [
   { label: "Food", href: "/food" },
   { label: "Accessories", href: "/accessories" },
-  { label: "Grooming", href: "/grooming" },
   { label: "Medicines", href: "/medicines" },
   { label: "Health Support", href: "/health-support" },
   { label: "About", href: "/about" },
