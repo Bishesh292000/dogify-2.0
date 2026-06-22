@@ -9,19 +9,19 @@ const config: Config = {
     extend: {
       colors: {
         dogify: {
-          blue: "#1E3A8A",
-          cyan: "#06B6D4",
+          blue: "#3B82F6",
+          cyan: "#22D3EE",
           green: "#22C55E",
-          ink: "#0F172A",
-          cloud: "#F8FAFC"
+          ink: "#F8FAFC",
+          cloud: "#0F172A"
         }
       },
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"]
       },
       boxShadow: {
-        glow: "0 24px 90px rgba(6, 182, 212, 0.25)",
-        premium: "0 28px 80px rgba(15, 23, 42, 0.16)"
+        glow: "0 24px 90px rgba(34, 211, 238, 0.25)",
+        premium: "0 30px 100px rgba(0, 0, 0, 0.45)"
       }
     }
   },
