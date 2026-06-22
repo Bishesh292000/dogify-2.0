@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "Contact DOGIFY | Pet Care Support",
   description:
-    "Contact DOGIFY for grooming bookings, pet food guidance, accessories, medicines, health support, partnerships, and care questions.",
+    "Contact DOGIFY for pet food guidance, accessories, medicines, health support, partnerships, and care questions.",
   canonical: "/contact"
 });
 
