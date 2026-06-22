@@ -6,11 +6,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "DOGIFY | Everything Your Pet Needs. One Trusted Platform.",
   description:
-    "DOGIFY is India's premium pet-care ecosystem for food, accessories, grooming, medicines, and expert health support.",
+    "DOGIFY is India's premium pet-care ecosystem for food, accessories, medicines, and expert health support.",
   keywords: [
     "DOGIFY",
     "pet care India",
-    "dog grooming",
     "pet food",
     "pet medicines",
     "vet consultation"
@@ -18,14 +17,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "DOGIFY | Premium Pet-Care Ecosystem",
     description:
-      "Food, accessories, grooming, medicines, and 24/7 health support for modern pet parents.",
+      "Food, accessories, medicines, and 24/7 health support for modern pet parents.",
     type: "website",
     locale: "en_IN"
   },
   twitter: {
     card: "summary_large_image",
     title: "DOGIFY | Everything Your Pet Needs",
-    description: "India's premium pet-care ecosystem for food, accessories, grooming, medicines, and health support."
+    description:
+      "India's premium pet-care ecosystem for food, accessories, medicines, and health support."
   },
   robots: {
     index: true,
@@ -56,7 +56,7 @@ const structuredData = [
     "@type": "LocalBusiness",
     additionalType: "https://schema.org/PetStore",
     name: "DOGIFY",
-    description: "Food, accessories, grooming, medicines, and pet health support in India.",
+    description: "Food, accessories, medicines, and pet health support in India.",
     email: dogifyContact.email,
     telephone: dogifyContact.whatsappNumber,
     areaServed: "India"
