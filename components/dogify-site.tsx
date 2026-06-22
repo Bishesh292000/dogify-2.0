@@ -137,13 +137,12 @@ function Navigation() {
   const [open, setOpen] = useState(false);
   const cartCount = useCartStore((state) => state.items.reduce((total, item) => total + item.quantity, 0));
   const primaryLinks = [
-    { label: "Food", href: "/food" },
-    { label: "Accessories", href: "/accessories" },
-    { label: "Grooming", href: "/grooming" },
-    { label: "Medicines", href: "/medicines" },
-    { label: "Health", href: "/health-support" },
-    { label: "About", href: "/about" }
-  ];
+  { label: "Food", href: "/food" },
+  { label: "Accessories", href: "/accessories" },
+  { label: "Medicines", href: "/medicines" },
+  { label: "Health", href: "/health-support" },
+  { label: "About", href: "/about" }
+];
 
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 px-4 py-4">
@@ -270,14 +269,14 @@ export function HomePage() {
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">
-            Premium Food, Accessories, Grooming, Medicines and Expert Health Support.
+            Premium Food, Accessories, Medicines and Expert Health Support.
           </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <PrimaryLink href="/food">Shop Pet Essentials</PrimaryLink>
-            <SecondaryLink href="/grooming">Book Grooming</SecondaryLink>
+            <SecondaryLink href="/health-support">Get Health Support</SecondaryLink>
           </div>
           <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
-            {["Food", "Grooming", "24/7 Care"].map((item) => (
+            {["Food", "Medicines", "24/7 Care"].map((item) => (
               <div key={item} className="rounded-[20px] border border-white/70 bg-white/70 px-4 py-4 text-center shadow-[0_18px_50px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
                 <p className="text-sm font-black text-dogify-ink">{item}</p>
               </div>
@@ -303,7 +302,6 @@ export function HomePage() {
             </div>
             {[
               { label: "Food Packs", icon: servicePages.food.icon, className: "left-0 top-16", rotate: "-7deg" },
-              { label: "Grooming", icon: servicePages.grooming.icon, className: "right-2 top-20", rotate: "6deg" },
               { label: "Medicines", icon: servicePages.medicines.icon, className: "bottom-24 left-4", rotate: "5deg" },
               { label: "Vet Icons", icon: servicePages["health-support"].icon, className: "bottom-16 right-7", rotate: "-5deg" },
               { label: "Pet Toys", icon: servicePages.accessories.icon, className: "left-1/2 top-0 -translate-x-1/2", rotate: "3deg" }
@@ -328,7 +326,7 @@ export function HomePage() {
         <SectionHeader
           eyebrow="Services Ecosystem"
           title="One connected care layer for every pet need."
-          copy="DOGIFY brings everyday essentials, expert care, and health confidence into a single premium experience."
+          copy="DOGIFY brings everyday essentials and health confidence into a single premium experience."
         />
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
           {services.map((service, index) => {
@@ -413,7 +411,7 @@ function HowDogifyWorks() {
     {
       step: "03",
       title: "DOGIFY confirms",
-      copy: "The team confirms availability, delivery, grooming slots, or health support next steps.",
+      copy: "The team confirms availability, delivery or health support next steps.",
       icon: PackageCheck
     }
   ];
@@ -457,7 +455,6 @@ function CommerceTrustStrip() {
   const badges = [
     "Live premium catalog",
     "WhatsApp-first ordering",
-    "Grooming bookings",
     "Health support requests",
     "No online payment collection"
   ];
@@ -692,10 +689,10 @@ function RelatedServices({ current }: { current: ServicePageData }) {
   return (
     <section className="section-shell py-20">
       <SectionHeader eyebrow="Connected Ecosystem" title="Explore the rest of DOGIFY." copy="Every care vertical works better when it connects with the others." />
-      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {services
           .filter((service) => service.slug !== current.slug)
-          .slice(0, 4)
+          .slice(0, 3)
           .map((service) => (
             <Link key={service.slug} href={service.href} className="glass group rounded-[2rem] p-6 transition hover:-translate-y-2">
               <IconBubble icon={service.icon} tone="cyan" />
@@ -732,7 +729,7 @@ export function AboutPage() {
         <SectionHeader
           eyebrow="Mission"
           title="Create India's most trusted pet-care ecosystem."
-          copy="DOGIFY brings together products, grooming, medicines, and health support so pet parents do not have to stitch care together from disconnected services."
+          copy="DOGIFY brings together food, accessories, medicines, and health support so pet parents do not have to stitch care together from disconnected services."
           align="left"
         />
         <div className="grid gap-4 sm:grid-cols-2">
@@ -756,7 +753,7 @@ export function ContactPage() {
       <InnerHero
         eyebrow="Contact DOGIFY"
         title="Tell us what your pet needs next."
-        copy="Reach out for grooming bookings, product guidance, medicine support, health questions, or partnership conversations."
+         copy="Reach out for product guidance, medicine support, health questions, order assistance, or partnership conversations."
         icon={Mail}
         image="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=1200&q=86"
       />
@@ -783,7 +780,7 @@ export function ContactPage() {
           </div>
           <label className="mt-5 grid gap-2 text-sm font-bold text-slate-600">
             What do you need?
-            <textarea className="min-h-36 rounded-[14px] border border-slate-200 bg-white/80 p-4 outline-none transition focus:border-[#FF6B35]" placeholder="Food, grooming, medicines, health support, or something else..." />
+            <textarea className="min-h-36 rounded-[14px] border border-slate-200 bg-white/80 p-4 outline-none transition focus:border-[#FF6B35]" placeholder="Food, accessories, medicines, health support, or something else..." />
           </label>
           <button type="button" className="mt-6 inline-flex min-h-12 items-center justify-center gap-3 rounded-[14px] bg-[#FF6B35] px-6 py-3 text-sm font-bold text-white shadow-premium transition hover:-translate-y-0.5">
             Send Request <ArrowRight className="h-4 w-4" />
@@ -800,7 +797,7 @@ export function FaqPage() {
       <InnerHero
         eyebrow="FAQ"
         title="Clear answers for modern pet parents."
-        copy="Everything you need to understand DOGIFY services, support, grooming, medicines, and care coordination."
+        copy="Everything you need to understand DOGIFY services, support, medicines, and care coordination."
         icon={HeartPulse}
       />
       <section className="section-shell py-20">
@@ -837,7 +834,7 @@ export function LegalPage({ kind }: { kind: "privacy" | "terms" }) {
         title={isPrivacy ? "How DOGIFY protects pet-parent trust." : "Clear terms for a connected pet-care platform."}
         copy={
           isPrivacy
-            ? "A practical overview of how DOGIFY handles information shared for products, grooming, medicines, and health support."
+            ? "A practical overview of how DOGIFY handles information shared for products, medicines, and health support."
             : "A responsible framework for using DOGIFY services, support flows, product guidance, and care coordination."
         }
         icon={isPrivacy ? HeartPulse : Sparkles}
@@ -854,7 +851,7 @@ export function LegalPage({ kind }: { kind: "privacy" | "terms" }) {
             ))}
           </div>
           <p className="mt-8 text-sm leading-6 text-slate-500">
-            This page is written for a product prototype and should be reviewed by legal counsel before commercial launch.
+              For questions regarding these policies, please contact DOGIFY support.
           </p>
         </div>
       </section>
