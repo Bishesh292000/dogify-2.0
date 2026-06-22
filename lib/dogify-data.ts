@@ -192,9 +192,9 @@ export const servicePages: Record<ServiceSlug, ServicePageData> = {
 export const services = Object.values(servicePages);
 
 export const trustMetrics = [
-  { value: 1000, suffix: "+", label: "Happy Pets" },
-  { value: 500, suffix: "+", label: "Products" },
-  { value: 24, suffix: "/7", label: "Health Support" }
+  { value: 5, suffix: "+", label: "Care Categories" },
+  { value: 24, suffix: "/7", label: "Health Support" },
+  { value: 1, suffix: "", label: "Pet Ecosystem" }
 ];
 
 export const trustBadges = [
