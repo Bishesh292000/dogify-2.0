@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "DOGIFY FAQ | Pet Care Questions Answered",
   description:
-    "Find answers about DOGIFY grooming, food, accessories, medicines, health support, service availability, and care coordination.",
+    "Find answers about DOGIFY food, accessories, medicines, health support, service availability, and care coordination.",
   canonical: "/faq"
 });
 
